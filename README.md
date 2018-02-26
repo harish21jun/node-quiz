@@ -1,6 +1,5 @@
 # A simple quiz app written in NodeJS
 
-Try this app at http://node-quiz-ivanmarban.herokuapp.com/
 
 ## Prerequisites
 - node.js
