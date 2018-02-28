@@ -45,7 +45,7 @@ exports.create = function(req, res) {
 	});
 };
 
-// DELETE /logout 
+// DELETE /logout
 exports.destroy = function(req, res) {
 	delete req.session.user;
 	res.redirect('/');

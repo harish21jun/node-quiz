@@ -1,14 +1,17 @@
 <label class="control-label">Question:</label>
 <input type="text" id="question" class="form-control" name="quiz[question]" value="<%= quiz.question %>"/>
+
+<label class="control-label">Options: (separated by commas)</label>
+<input type="text" id="options" class="form-control" name="quiz[options]" value="<%= quiz.options %>"/>
+
 <label class="control-label">Answer:</label>
 <input type="text" id="answer" class="form-control" name="quiz[answer]" value="<%= quiz.answer %>"/>
 <label class="control-label">Thematic:</label>
 <select class="form-control" name="quiz[thematic]">
 	<option value="Others" <%= (quiz.thematic == 'Others' || quiz.thematic == null)?'selected':'' %>>Others</option>
-	<option value="Humanities" <%= (quiz.thematic == 'Humanities')?'selected':'' %>>Humanities</option>
-	<option value="Spare Time" <%= (quiz.thematic == 'Spare time')?'selected':'' %>>Spare time</option>
-	<option value="Science" <%= (quiz.thematic == 'Science')?'selected':'' %>>Science</option>
-	<option value="Technology" <%= (quiz.thematic == 'Technology')?'selected':'' %>>Technology</option>
+	<option value="Coding Standard" <%= (quiz.thematic == 'Coding Standard')?'selected':'' %>>Coding Standard</option>
+	<option value="Server" <%= (quiz.thematic == 'Server')?'selected':'' %>>Server</option>
+
 </select>
 <label class="control-label">Image:</label>
 <input type="file" accept="image/*" id="image" name="image"/>

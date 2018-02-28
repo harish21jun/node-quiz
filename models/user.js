@@ -1,5 +1,6 @@
 var crypto = require('crypto');
-var key = process.env.PASSWORD_ENCRYPTION_KEY;
+//var key = process.env.PASSWORD_ENCRYPTION_KEY;
+key='asdfghjklzxcvbnmqwertyuiop';
 
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define(
@@ -43,6 +44,7 @@ module.exports = function(sequelize, DataTypes) {
                         encripted = '';
                     }
                     this.setDataValue('password', encripted);
+                    //this.setDataValue('password', password);
                 }
             },
             isAdmin: {
@@ -54,6 +56,7 @@ module.exports = function(sequelize, DataTypes) {
                 verifyPassword: function(password) {
                     var encripted = crypto.createHmac('sha1', key).update(password).digest('hex');
                     return encripted === this.password;
+                    //return this.password;
                 }
             }
         }

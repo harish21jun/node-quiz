@@ -1,5 +1,8 @@
 var path = require('path');
-var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+
+//console.log(process.env);
+//var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
+var url = 'sqlite://:@:/'.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
 var DB_name = (url[6] || null);
 var user = (url[2] || null);
 var pwd = (url[3] || null);
@@ -7,7 +10,7 @@ var protocol = (url[1] || null);
 var dialect = (url[1] || null);
 var port = (url[5] || null);
 var host = (url[4] || null);
-var storage = process.env.DATABASE_STORAGE;
+var storage = 'node-quiz.sqlite';//process.env.DATABASE_STORAGE;
 var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize(DB_name, user, pwd, {
@@ -56,14 +59,16 @@ sequelize.sync().then(function() {
 					if (count === 0) {
 						Quiz.bulkCreate(
 							[{
-								question: 'What is the capital city of Italy?',
-								answer: 'Rome',
-								thematic: 'Spare time',
+								question: 'Who is TOCPAI founder?',
+								options: 'Dhanoj,Harish',
+								answer: 'Dhanoj',
+								thematic: 'Others',
 								UserId: 2
 							}, {
-								question: 'What is the capital city of Portugal?',
-								answer: 'Lisbon',
-								thematic: 'Spare time',
+								question: 'What should be join transaction behaviour for DBLogger import?',
+								options: 'True,False',
+								answer: 'False',
+								thematic: 'Coding Standard',
 								UserId: 2
 							}]
 						).then(function() {

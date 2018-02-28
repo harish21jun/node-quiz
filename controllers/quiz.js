@@ -1,12 +1,12 @@
 var models = require('../models/models.js');
 var url = require('url') ;
-
+var len;
 exports.ownershipRequired = function(req, res, next) {
 	var objQuizOwner = req.quiz.UserId;
 	var logUser = req.session.user.id;
 	var isAdmin = req.session.user.isAdmin;
 
-	if (isAdmin || objQuizOwner === logUser) {
+if (isAdmin || objQuizOwner === logUser) {
 		next();
 	} else {
 		res.redirect('/');
@@ -39,7 +39,7 @@ exports.load = function(req, res, next, quizId) {
 exports.index = function(req, res) {
 	var options = {};
 	var query = url.parse(req.url,true).query;
-	
+
 	if (JSON.stringify(query) != '{}' && query.search != ''){
 		options = {where: ['question like ?', '%'+query.search.replace(/\s+/g,'%')+'%']};
 		console.log(options);
@@ -55,6 +55,8 @@ exports.index = function(req, res) {
 
 	models.Quiz.findAll(options).then(
 		function(quizzes) {
+
+			len=quizzes.length;
 			res.render('quizzes/index.ejs', {
 				page : _page,
 				quizzes: quizzes,
@@ -77,15 +79,31 @@ exports.show = function(req, res) {
 
 // GET /quizzes/:id/answer
 exports.answer = function(req, res) {
-	var result = 'Wrong';
+
+	var result = 'Incorrect';
+
 	if (req.query.answer === req.quiz.answer) {
-		result = 'Wright';
+
+		result = 'Correct';
+		if(!req.session.user.correctCount)
+			req.session.user.correctCount = 0;
+		if(!req.session.user.incorrectCount)
+				req.session.user.incorrectCount = 0;
+
+		req.session.user.correctCount=req.session.user.correctCount+1;
+		console.log("CorrectCount:"+req.session.user.correctCount);
+
+	}
+	else{
+			req.session.user.incorrectCount=req.session.user.incorrectCount+1;
+			console.log("IncorrectCount:"+req.session.user.incorrectCount);
 	}
 	res.render(
 		'quizzes/answer', {
 			page : 'quiz-answer',
 			quiz : req.quiz,
 			answer : result,
+			len: len,
 			errors: []
 		}
 	);
@@ -94,8 +112,8 @@ exports.answer = function(req, res) {
 // GET /quizzes/new
 exports.new = function(req, res) {
 	var quiz = models.Quiz.build({
-		question: 'Question text.',
-		answer: 'Answer text.'
+		question: '',
+		answer: ''
 	});
 
 	res.render('quizzes/new', {
@@ -107,7 +125,7 @@ exports.new = function(req, res) {
 
 // POST /quizzes/create
 exports.create = function(req, res) {
-	
+
 	req.body.quiz.UserId = req.session.user.id;
 	if (req.files.image) {
 		req.body.quiz.image = req.files.image.name;
@@ -128,7 +146,7 @@ exports.create = function(req, res) {
 				} else {
 					quiz
 						.save({
-							fields: ['question', 'answer', 'UserId', 'thematic','image']
+							fields: ['question', 'options','answer', 'UserId', 'thematic','image']
 						})
 						.then(function() {
 							res.redirect('/quizzes')
@@ -138,15 +156,15 @@ exports.create = function(req, res) {
 		).catch(function(error) {
 			next(error)
 		});
-		
+
 };
 
 // GET /quizzes/:id/edit
 exports.edit = function(req, res) {
 	var quiz = req.quiz;
-	
+
 	console.log(quiz);
-	
+
 	res.render('quizzes/edit', {
 		page : 'quiz-edit',
 		quiz: quiz,

@@ -1,19 +1,35 @@
 <div class="jumbotron">
 	<ul class="list-group">
 		<li class="list-group-item clearfix">
-			Questions: <%= quizzes %>
+			Total Questions: <%= quizzes %>
 		</li>
+		<!--
 		<li class="list-group-item clearfix">
 			Published comments: <%= comments %>
 		</li>
+
 		<li class="list-group-item clearfix">
 			Average comments per question: <%= avg %>
 		</li>
+
 		<li class="list-group-item clearfix">
 			Questions without comments: <%= without_comments %>
 		</li>
 		<li class="list-group-item clearfix">
 			Questions with comments: <%= with_comments %>
 		</li>
+		-->
+		<li class="list-group-item clearfix">
+			User Count: <%= users %>
+		</li>
+		<li class="list-group-item clearfix">
+			Total Question Attempted: <%= questionAttempted %>
+		</li>
+		<li class="list-group-item clearfix">
+			Score: <%= score %> %
+		</li>
+
 	</ul>
+
+	<a class="btn btn-sm btn-primary" href="/sendMail %>">Send My Score</a>
 </div>

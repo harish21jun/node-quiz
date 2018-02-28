@@ -8,8 +8,9 @@ var express			= require('express'),
 	methodOverride	= require('method-override'),
 	session			= require('express-session'),
 	debug			= require('debug')('quiz'),
+	nodemailer = require('nodemailer');
 	dotenv			= require('dotenv');
-	
+
 var app = express();
 var env = process.env.NODE_ENV || 'dev';
 
@@ -30,11 +31,10 @@ app.use(session({
 	secret: 'qwertyuiop',
     resave: true,
     saveUninitialized: true,
-	cookie: { maxAge: 120000 }
+		cookie: { maxAge: 120000 }
 }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(function(req, res, next) {
 	if (!req.session.redir) {
 		req.session.redir = '/';
@@ -42,7 +42,9 @@ app.use(function(req, res, next) {
 	if (!req.path.match(/\/login|\/logout|\/user/)) {
 		req.session.redir = req.path;
 	}
+
 	res.locals.session = req.session;
+
 	next();
 });
 
@@ -54,8 +56,9 @@ app.use(function(req, res, next) {
 	next(err);
 });
 
-app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-	debug('Express server listening on port ' + server.address().port);
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+app.listen(port, ip, function () {
+    console.log( "Listening on " + ip + ", server_port " + port  );
 });

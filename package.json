@@ -5,14 +5,11 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ivanmarban/node-quiz.git"
+    "url": "https://github.com/harish21jun/node-quiz"
   },
-  "author": "Ivan Marban",
+  "author": "",
   "license": "GNU",
-  "bugs": {
-    "url": "https://github.com/ivanmarban/node-quiz/issues"
-  },
-  "homepage": "https://github.com/ivanmarban/node-quiz",
+  "homepage": "https://github.com/harish21jun/node-quiz",
   "devDependencies": {
     "sqlite3": "^3.0.4"
   },
@@ -29,10 +26,12 @@
     "method-override": "^2.3.3",
     "morgan": "^1.5.3",
     "multer": "^0.1.8",
+    "nodemailer": "^4.6.0",
     "path": "^0.11.14",
     "pg": "^4.3.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.1.1",
-    "serve-favicon": "^2.2.1"
+    "serve-favicon": "^2.2.1",
+    "sqlite3": "^3.1.13"
   }
 }

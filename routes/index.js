@@ -7,11 +7,12 @@ var commentController = require('../controllers/comment');
 var sessionController = require('../controllers/session');
 var userController = require('../controllers/user');
 var statisticsController = require('../controllers/statistics');
+var mailController = require('../controllers/mail');
 
 router.get('/', function(req, res) {
 	res.render('index', {
 		page : 'home',
-		title: 'node-quiz',
+		title: 'TOCP Quiz',
 		errors: []
 	});
 });
@@ -58,5 +59,7 @@ router.delete('/quizzes/:quizId(\\d+)', sessionController.loginRequired, quizCon
 router.get('/quizzes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizzes/:quizId(\\d+)/comments', commentController.create);
 router.get('/quizzes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',sessionController.loginRequired, commentController.ownershipRequired, commentController.publish);
+
+router.get('/sendMail',mailController.sendMail);
 
 module.exports = router;

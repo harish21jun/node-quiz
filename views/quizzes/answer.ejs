@@ -1,6 +1,20 @@
 <div class="jumbotron">
 	<ul class="list-group">
-		<li class="list-group-item"><%= answer %></li>
+		<%if (answer && answer=='Correct'){%>
+
+		<p style="color:green"><%= answer %></p>
+		<%} else {%>
+			<p style="color:red"><%= answer %></p>
+		<%} %>
+
 	</ul>
-	<a class="btn btn-sm btn-primary" href="/quizzes/<%= quiz.id %>">Back</a>
+	<a class="btn btn-sm btn-primary" href="/quizzes/<%= quiz.id %>">Back</a>&nbsp;&nbsp;
+
+	<%if (len>quiz.id) {%>
+	<a class="btn btn-sm btn-primary" href="/quizzes/<%= quiz.id+1 %>">Next</a>&nbsp;&nbsp;
+	<%} else{%>
+			<a class="btn btn-sm btn-primary" href="/statistics %>">Show Score</a>&nbsp;&nbsp;
+<%} %>
+
+	<a class="btn btn-sm btn-primary" href="/quizzes/">Quizzes</a>
 </div>
