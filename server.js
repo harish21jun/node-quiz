@@ -8,7 +8,7 @@ var express			= require('express'),
 	methodOverride	= require('method-override'),
 	session			= require('express-session'),
 	debug			= require('debug')('quiz'),
-	nodemailer = require('nodemailer');
+	//nodemailer = require('nodemailer');
 	dotenv			= require('dotenv');
 
 var app = express();
