@@ -8,7 +8,7 @@ var express			= require('express'),
 	methodOverride	= require('method-override'),
 	session			= require('express-session'),
 	debug			= require('debug')('quiz'),
-	nodemailer = require('nodemailer');
+	//nodemailer = require('nodemailer');
 	dotenv			= require('dotenv');
 
 var app = express();
@@ -57,7 +57,7 @@ app.use(function(req, res, next) {
 });
 
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000,
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.listen(port, ip, function () {
     console.log( "Listening on " + ip + ", server_port " + port  );
